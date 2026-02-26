@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Project Management Dashboard";
+}
+
+<h2>Project Management System</h2>
+<hr />
+
+<div style="display:flex; gap:30px; flex-wrap:wrap;">
+
+    <div>
+        <h4>Employees</h4>
+        <a asp-controller="Employees" asp-action="Index" class="btn btn-primary">View Employees</a><br /><br />
+        <a asp-controller="Employees" asp-action="Create" class="btn btn-success">Add Employee</a>
+    </div>
+
+    <div>
+        <h4>Projects</h4>
+        <a asp-controller="Projects" asp-action="Index" class="btn btn-primary">View Projects</a><br /><br />
+        <a asp-controller="Projects" asp-action="Create" class="btn btn-success">Add Project</a>
+    </div>
+
+    <div>
+        <h4>Tasks</h4>
+        <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">View Tasks</a><br /><br />
+        <a asp-controller="Tasks" asp-action="Create" class="btn btn-success">Add Task</a>
+    </div>
+
+</div>
