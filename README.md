@@ -1,8 +1,8 @@
-Project Management System (ASP.NET Core + Entity Framework Core + SQL Server)
+Project Management System (ASP.NET Core + Entity Framework Core + SQL Server).
 This is a web-based application that helps manage:
-👨‍💼 Employees
-📁 Projects
-✅ Tasks
+Employees
+Projects
+Tasks
 It allows: Adding employees, Creating projects, Assigning employees to projects, Creating tasks under projects, Assigning tasks to employees, Tracking task status
 This Project Management System is built using ASP.NET Core MVC and Entity Framework Core. 
 It manages employees, projects, and tasks with proper relational database design. 
