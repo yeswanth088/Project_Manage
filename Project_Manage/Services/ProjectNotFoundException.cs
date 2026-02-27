@@ -1,7 +1,9 @@
-﻿namespace Project_Manage.Services
+﻿using System;
+
+namespace Project_Manage.Services
 {
     [Serializable]
-    internal class ProjectNotFoundException : Exception
+    public class ProjectNotFoundException : Exception 
     {
         public ProjectNotFoundException()
         {
