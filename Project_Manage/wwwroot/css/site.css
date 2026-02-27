@@ -1,31 +1,498 @@
+=========================
+/* Base Font & Responsive    */
+/* ========================= */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f3f6fb; /* softer blue tone */
+    font-family: 'Segoe UI', sans-serif;
+    color: #1e293b; /* modern slate */
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+
+/* ========================= */
+/* Focus Styling (Bootstrap) */
+/* ========================= */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem #ffffff, 0 0 0 0.25rem #2563eb;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+
+/* ========================= */
+/* Form Floating Fix         */
+/* ========================= */
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
 }
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+
+/* ========================= */
+/* Dashboard Header          */
+/* ========================= */
+
+.dashboard-header h1 {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-header p {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.soft-divider {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin-top: 20px;
+}
+
+
+/* ========================= */
+/* Dashboard Cards           */
+/* ========================= */
+
+.dashboard-card {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+    transition: all 0.25s ease;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    }
+
+
+/* ========================= */
+/* Buttons Styling           */
+/* ========================= */
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #1e4ed8;
+    }
+
+.btn-success {
+    background-color: #15803d;
+    border: none;
+}
+
+    .btn-success:hover {
+        background-color: #166534;
+    }
+
+
+/* ========================= */
+/* Tables Modern Look        */
+/* ========================= */
+
+.table {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+    .table thead {
+        background-color: #f9fafb;
+        font-weight: 600;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+    }
+
+
+/* ========================= */
+/* Form Controls Styling     */
+/* ========================= */
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-select {
+    border-radius: 8px;
+}
+
+
+/* ========================= */
+/* Footer Spacing Fix        */
+/* ========================= */
+
+.footer {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+
+/* ========================= */
+/* Base Font & Responsive    */
+/* ========================= */
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #e6f0ff 0%, #f0f7ff 100%);
+    font-family: 'Segoe UI', sans-serif;
+    color: #1f2937;
+}
+
+
+/* ========================= */
+/* Focus Styling (Bootstrap) */
+/* ========================= */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem #ffffff, 0 0 0 0.25rem #2563eb;
+}
+
+
+/* ========================= */
+/* Form Floating Fix         */
+/* ========================= */
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+
+/* ========================= */
+/* Dashboard Header          */
+/* ========================= */
+
+.dashboard-header h1 {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-header p {
+    font-size: 16px;
+    color: #6b7280;
+}
+
+.soft-divider {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin-top: 20px;
+}
+
+
+/* ========================= */
+/* Dashboard Cards           */
+/* ========================= */
+
+.dashboard-card {
+    background: #ffffff;
+    border: 1px solid #e0e7ff;
+    padding: 35px 25px;
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.25s ease;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    }
+
+
+/* ========================= */
+/* Buttons Styling           */
+/* ========================= */
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #1e4ed8;
+    }
+
+.btn-success {
+    background-color: #15803d;
+    border: none;
+}
+
+    .btn-success:hover {
+        background-color: #166534;
+    }
+
+
+/* ========================= */
+/* Tables Modern Look        */
+/* ========================= */
+
+.table {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+    .table thead {
+        background-color: #f9fafb;
+        font-weight: 600;
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+    }
+
+
+/* ========================= */
+/* Form Controls Styling     */
+/* ========================= */
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.form-select {
+    border-radius: 8px;
+}
+
+
+/* ========================= */
+/* Footer Spacing Fix        */
+/* ========================= */
+
+.footer {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+
+
+/* ========================= */
+/* Status Badge System       */
+/* ========================= */
+
+.status-badge {
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 20px;
+}
+
+.status-assigned {
+    background-color: #2563eb;
+    color: white;
+}
+
+.status-started {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.status-complete {
+    background-color: #16a34a;
+    color: white;
+}
+
+
+
+/* ========================= */
+/* Corporate Navbar          */
+/* ========================= */
+
+.corporate-navbar {
+    background-color: #111827;
+    padding: 14px 20px;
+}
+
+    .corporate-navbar .nav-link {
+        color: #d1d5db !important;
+        font-weight: 500;
+    }
+
+        .corporate-navbar .nav-link:hover {
+            color: #ffffff !important;
+        }
+
+    .corporate-navbar .navbar-brand {
+        color: #ffffff !important;
+        font-size: 20px;
+    }
+
+
+/* ========================= */
+/* Status Badges             */
+/* ========================= */
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.status-assigned {
+    background-color: #2563eb;
+    color: white;
+}
+
+.status-started {
+    background-color: #facc15;
+    color: #111827;
+}
+
+.status-complete {
+    background-color: #16a34a;
+    color: white;
+}
+
+
+/* ========================= */
+/* Form Card Styling         */
+/* ========================= */
+
+.form-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 25px rgba(15,23,42,0.05);
+    max-width: 650px;
+    margin: 0 auto; /* ADD THIS LINE */
+}
+
+
+/* ========================= */
+/* Custom Form Controls      */
+/* ========================= */
+
+.form-group-custom {
+    margin-bottom: 20px;
+}
+
+.form-control-custom {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+    .form-control-custom:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+
+
+/* ========================= */
+/* Buttons                   */
+/* ========================= */
+
+.btn-primary-custom {
+    background-color: #2563eb;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    color: white;
+}
+
+    .btn-primary-custom:hover {
+        background-color: #1e40af;
+    }
+
+.btn-secondary-custom {
+    background-color: #e5e7eb;
+    padding: 8px 18px;
+    border-radius: 8px;
+    color: #111827;
+    text-decoration: none;
+}
+
+
+/* ========================= */
+/* Table Hover Polish        */
+/* ========================= */
+
+.table tbody tr {
+    transition: background 0.2s ease;
+}
+
+    .table tbody tr:hover {
+        background-color: #f9fafb;
+    }

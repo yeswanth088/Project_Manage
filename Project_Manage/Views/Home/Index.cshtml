@@ -1,28 +1,91 @@
 ﻿@{
-    ViewData["Title"] = "Project Management Dashboard";
+    ViewData["Title"] = "Dashboard";
 }
 
-<h2>Project Management System</h2>
-<hr />
+<div class="container mt-4">
 
-<div style="display:flex; gap:30px; flex-wrap:wrap;">
-
-    <div>
-        <h4>Employees</h4>
-        <a asp-controller="Employees" asp-action="Index" class="btn btn-primary">View Employees</a><br /><br />
-        <a asp-controller="Employees" asp-action="Create" class="btn btn-success">Add Employee</a>
+    <div class="dashboard-header mb-5">
+        <h1 class="fw-semibold">Project Management Dashboard</h1>
+        <p class="text-muted">
+            Centralized control panel for managing employees, projects, and tasks.
+        </p>
+        <hr class="soft-divider" />
     </div>
 
-    <div>
-        <h4>Projects</h4>
-        <a asp-controller="Projects" asp-action="Index" class="btn btn-primary">View Projects</a><br /><br />
-        <a asp-controller="Projects" asp-action="Create" class="btn btn-success">Add Project</a>
-    </div>
+    <div class="row g-4">
 
-    <div>
-        <h4>Tasks</h4>
-        <a asp-controller="Tasks" asp-action="Index" class="btn btn-primary">View Tasks</a><br /><br />
-        <a asp-controller="Tasks" asp-action="Create" class="btn btn-success">Add Task</a>
+        <!-- Employees Card -->
+        <div class="col-md-4">
+            <div class="dashboard-card text-center">
+                <h4 class="fw-semibold mb-3">Employees</h4>
+                <p class="text-muted small mb-4">
+                    Manage team members and assign them to projects efficiently.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <a asp-controller="Employees"
+                       asp-action="Index"
+                       class="btn btn-primary px-4">
+                        View
+                    </a>
+
+                    <a asp-controller="Employees"
+                       asp-action="Create"
+                       class="btn btn-outline-primary px-4">
+                        Add
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Card -->
+        <div class="col-md-4">
+            <div class="dashboard-card text-center">
+                <h4 class="fw-semibold mb-3">Projects</h4>
+                <p class="text-muted small mb-4">
+                    Track planning, execution, and completion status.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <a asp-controller="Projects"
+                       asp-action="Index"
+                       class="btn btn-primary px-4">
+                        View
+                    </a>
+
+                    <a asp-controller="Projects"
+                       asp-action="Create"
+                       class="btn btn-outline-primary px-4">
+                        Add
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks Card -->
+        <div class="col-md-4">
+            <div class="dashboard-card text-center">
+                <h4 class="fw-semibold mb-3">Tasks</h4>
+                <p class="text-muted small mb-4">
+                    Organize assignments and monitor progress.
+                </p>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <a asp-controller="Tasks"
+                       asp-action="Index"
+                       class="btn btn-primary px-4">
+                        View
+                    </a>
+
+                    <a asp-controller="Tasks"
+                       asp-action="Create"
+                       class="btn btn-outline-primary px-4">
+                        Add
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>
