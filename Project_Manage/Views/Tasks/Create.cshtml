@@ -33,6 +33,8 @@
                                 asp-items="ViewBag.Project_id">
                             <option value="">-- Select Project --</option>
                         </select>
+
+                        <div id="existingTasksContainer" class="mt-2 text-info small"></div>
                     </div>
 
                     <div class="mb-3">
@@ -76,4 +78,43 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $(document).ready(function () {
+            $("#Project_id").change(function () {
+                var selectedProjectId = $(this).val();
+                var container = $("#existingTasksContainer");
+
+                if (selectedProjectId) {
+                    container.html("<span class='text-muted'>Loading tasks...</span>");
+
+                    $.ajax({
+                        url: '@Url.Action("GetTasksByProject", "Tasks")',
+                        type: 'GET',
+                        data: { projectId: selectedProjectId },
+                        success: function (data) {
+                            container.empty(); 
+
+                            if (data.length > 0) {
+                                var html = "<div class='mt-2 p-2 border rounded bg-light'>";
+                                html += "<strong class='text-dark'>Current Tasks in this Project:</strong><ul class='mb-0 ps-3'>";
+                                $.each(data, function (index, task) {
+                                    html += "<li class='text-secondary'>" + task.name + " (" + task.status + ")</li>";
+                                });
+                                html += "</ul></div>";
+                                container.html(html);
+                            } else {
+                                container.html("<div class='mt-2 p-2 border rounded bg-light text-muted'><em>No tasks exist for this project yet.</em></div>");
+                            }
+                        },
+                        error: function() {
+                            container.html("<span class='text-danger'>Error loading tasks.</span>");
+                        }
+                    });
+                } else {
+                    container.empty();
+                }
+            });
+        });
+    </script>
 }

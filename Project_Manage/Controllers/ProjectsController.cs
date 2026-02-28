@@ -34,9 +34,20 @@ namespace Project_Manage.Controllers
 
             var project = await _context.projects
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (project == null)
             {
                 return NotFound();
+            }
+
+            // NEW ADDITION: Calculate Expenditure if the project is Deployed
+            if (project.Status == ProjectStatus.Deployed)
+            {
+                var totalExpenditure = await _context.employees
+                    .Where(e => e.ProjectId == id)
+                    .SumAsync(e => e.Salary);
+
+                ViewBag.TotalExpenditure = totalExpenditure;
             }
 
             return View(project);
@@ -49,8 +60,6 @@ namespace Project_Manage.Controllers
         }
 
         // POST: Projects/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Start_date,Status")] Project project)
@@ -81,8 +90,6 @@ namespace Project_Manage.Controllers
         }
 
         // POST: Projects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Start_date,Status")] Project project)

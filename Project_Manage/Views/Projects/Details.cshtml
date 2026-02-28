@@ -57,6 +57,18 @@
             </div>
         </div>
 
+        @if (ViewBag.TotalExpenditure != null)
+        {
+            <hr class="soft-divider" />
+            <div class="row mb-4 bg-light p-3 rounded border border-success">
+                <div class="col-md-3 fw-semibold text-success">Total Expenditure</div>
+                <div class="col-md-9 fw-bold text-success fs-5">
+                    @* Formats the integer as local currency (e.g., $100,000.00 or ₹1,00,000.00) *@
+                    @(((int)ViewBag.TotalExpenditure).ToString("C"))
+                </div>
+            </div>
+        }
+
         <div class="form-actions">
             <a asp-action="Edit" asp-route-id="@Model.Id"
                class="btn btn-primary">

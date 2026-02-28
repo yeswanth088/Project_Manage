@@ -83,7 +83,7 @@ namespace ProjectManagement.Tests
         {
             int invalidEmployeeId = 999;
 
-            _mockService.Setup(s => s.DeleteEmployee(invalidEmployeeId))
+            _mockService.Setup(s => s.DeleteEmployee(invalidEmployeeId))s
                         .Throws(new ProjectNotFoundException("Employee not found"));
 
             try
@@ -95,6 +95,42 @@ namespace ProjectManagement.Tests
             catch (ProjectNotFoundException)
             {
             }
+        }
+        [TestMethod]
+        public void AddProject_ValidProject_ExecutesSuccessfully()
+        {
+            
+            var newProject = new Project
+            {
+                Id = 1,
+                Name = "AI Implementation",
+                Description = "Integrating AI features",
+                Start_date = "2026-03-01",
+                Status = ProjectStatus.Started
+            };
+
+            _mockService.Setup(s => s.AddProject(It.IsAny<Project>()));
+
+            
+            _mockService.Object.AddProject(newProject);
+
+            
+            _mockService.Verify(s => s.AddProject(It.IsAny<Project>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void AssignProjectToEmployee_ValidIds_ExecutesSuccessfully()
+        {
+            
+            int validProjectId = 1;
+            int validEmployeeId = 10;
+
+            _mockService.Setup(s => s.AssignProjectToEmployee(validProjectId, validEmployeeId));
+
+            
+            _mockService.Object.AssignProjectToEmployee(validProjectId, validEmployeeId);
+
+            _mockService.Verify(s => s.AssignProjectToEmployee(validProjectId, validEmployeeId), Times.Once);
         }
     }
 }

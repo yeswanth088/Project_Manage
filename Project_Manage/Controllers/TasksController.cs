@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +18,14 @@ namespace Project_Manage.Controllers
         }
 
         // GET: Tasks
-        public async Task<IActionResult> Index()
+        public async System.Threading.Tasks.Task<IActionResult> Index()
         {
             var projectContext = _context.tasks.Include(t => t.Emp).Include(t => t.Pro);
             return View(await projectContext.ToListAsync());
         }
 
         // GET: Tasks/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -61,12 +60,15 @@ namespace Project_Manage.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Project_id,Employee_id,Status")] Models.Task task)
+        public async System.Threading.Tasks.Task<IActionResult> Create([Bind("Id,Name,Project_id,Employee_id,Status")] Models.Task task)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(task);
                 await _context.SaveChangesAsync();
+
+                await UpdateProjectStatusAsync(task.Project_id);
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["Employee_id"] = new SelectList(_context.employees, "Id", "Id", task.Employee_id);
@@ -75,7 +77,7 @@ namespace Project_Manage.Controllers
         }
 
         // GET: Tasks/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -98,12 +100,23 @@ namespace Project_Manage.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Project_id,Employee_id,Status")] Models.Task task)
+        public async System.Threading.Tasks.Task<IActionResult> Edit(int id, [Bind("Id,Name,Project_id,Employee_id,Status")] Models.Task task)
         {
             if (id != task.Id)
             {
                 return NotFound();
             }
+
+            var existingTask = await _context.tasks
+                .AsNoTracking()
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (existingTask == null)
+            {
+                return NotFound();
+            }
+
+            var previousProjectId = existingTask.Project_id;
 
             if (ModelState.IsValid)
             {
@@ -111,6 +124,13 @@ namespace Project_Manage.Controllers
                 {
                     _context.Update(task);
                     await _context.SaveChangesAsync();
+
+                    await UpdateProjectStatusAsync(previousProjectId);
+
+                    if (previousProjectId != task.Project_id)
+                    {
+                        await UpdateProjectStatusAsync(task.Project_id);
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,7 +151,7 @@ namespace Project_Manage.Controllers
         }
 
         // GET: Tasks/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async System.Threading.Tasks.Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -149,20 +169,59 @@ namespace Project_Manage.Controllers
 
             return View(task);
         }
+        [HttpGet]
+        public async System.Threading.Tasks.Task<IActionResult> GetTasksByProject(int projectId)
+        {
+            var tasks = await _context.tasks
+                .Where(t => t.Project_id == projectId)
+                .Select(t => new {
+                    id = t.Id,
+                    name = t.Name,
+                    status = t.Status.ToString()
+                })
+                .ToListAsync();
+
+            return Json(tasks);
+        }
 
         // POST: Tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async System.Threading.Tasks.Task<IActionResult> DeleteConfirmed(int id)
         {
             var task = await _context.tasks.FindAsync(id);
             if (task != null)
             {
+                var projectId = task.Project_id;
                 _context.tasks.Remove(task);
+                await _context.SaveChangesAsync();
+                await UpdateProjectStatusAsync(projectId);
+
+                return RedirectToAction(nameof(Index));
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private async System.Threading.Tasks.Task UpdateProjectStatusAsync(int projectId)
+        {
+            var project = await _context.projects.FindAsync(projectId);
+            if (project == null)
+            {
+                return;
+            }
+
+            var hasTasks = await _context.tasks.AnyAsync(t => t.Project_id == projectId);
+            if (!hasTasks)
+            {
+                return;
+            }
+
+            var hasOpenTasks = await _context.tasks.AnyAsync(t => t.Project_id == projectId && t.Status != Models.TaskStatus.Complete);
+
+            project.Status = hasOpenTasks ? ProjectStatus.Dev : ProjectStatus.Deployed;
+            await _context.SaveChangesAsync();
         }
 
         private bool TaskExists(int id)
